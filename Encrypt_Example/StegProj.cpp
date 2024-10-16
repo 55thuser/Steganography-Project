@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 #include "lodepng.h"
-
+#include <iomanip>
 std::string pngName;
 std::string fileName;
 std::string outputName;
@@ -11,7 +11,7 @@ unsigned int imageWidth;
 unsigned int imageHeight;
 int bits;
 char mode;
-
+//Project Page: https://github.com/55thuser/Steganography-Project
 int returnInputInt(std::string inputString){
     int loc = inputString.find(" ");
     std::string numberString = inputString.substr(loc, inputString.length());
@@ -127,9 +127,18 @@ std::vector<char> readEncodedImage(std::vector<u_int8_t> &image){
     }
     return output;
 }
+void outputConfig(){
+    std::cout<<std::left<<std::setw(15)<<"pngName: "<<pngName<<std::endl;
+    std::cout<<std::left<<std::setw(15)<<"fileName: "<<fileName<<std::endl;
+    std::cout<<std::left<<std::setw(15)<<"outputName: "<<outputName<<std::endl;
+    std::cout<<std::left<<std::setw(15)<<"width: "<<imageWidth<<std::endl;
+    std::cout<<std::left<<std::setw(15)<<"height: "<<imageHeight<<std::endl;
+    std::cout<<std::left<<std::setw(15)<<"bits: "<<bits<<std::endl;
+    std::cout<<std::left<<std::setw(15)<<"mode: "<<mode<<std::endl;
+}
 int main(){
     readConfig();
-    std::cout<<std::endl<<pngName<<std::endl<<fileName<<std::endl<<outputName<<std::endl<<imageWidth<<std::endl<<imageHeight<<std::endl<<bits<<std::endl<<mode<<std::endl;
+    outputConfig();
     std::vector<u_int8_t> image;
     decompress(image, pngName);
     if(mode == 'E'){
@@ -137,7 +146,7 @@ int main(){
         unsigned error = lodepng::encode(outputName, image, imageWidth, imageHeight);
         if(error) std::cout << "encoder error " << error << ": "<< lodepng_error_text(error) << std::endl;
     }
-    else if(mode == 'D'){
+    else if(mode == 'X'){
         std::vector<char> output = readEncodedImage(image);
         std::ofstream outfile(outputName);
         for(int i = 0; i<output.size(); i++){
