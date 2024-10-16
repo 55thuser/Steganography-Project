@@ -9,7 +9,9 @@ To compile use the following command:   g++ StegProj.cpp lodepng.cpp
 ### Configuration
 StegProj.cpp uses a configuration folder for easy access to file names
 
-The configuration file is whitespace sensitive so a space character must appear before and after your input e.g: mode: X 
+The configuration file is whitespace sensitive so a space character must appear before and after your input e.g:
+
+mode: X 
 
 pngName:    Name of png you would like to embed to or extract from
 
